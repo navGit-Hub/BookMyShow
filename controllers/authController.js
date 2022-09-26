@@ -1,5 +1,4 @@
 import db from "../models/index.js";
-import config from "../../config/auth.config";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 

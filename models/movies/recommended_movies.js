@@ -1,5 +1,5 @@
 export default (sequelize,{DataTypes})=>{
-    return sequelize.define('Theater',({
+    return sequelize.define('RecommendedMovie',({
         id:{
             type:DataTypes.INTEGER,
             unique:true,
@@ -9,34 +9,29 @@ export default (sequelize,{DataTypes})=>{
                 noEmpty:true,
              }
           },
-          screen_id:{
+          user_id:{
             type:DataTypes.INTEGER,
             unique:true,
             allowNull:false,
              primaryKey:true,
     
           },
-          seat_id:{
+          movie_id:{
             type:DataTypes.INTEGER,
             unique:true,
             allowNull:false,
              primaryKey:true,
           },
-          theatrical_movies_id:{
-            type:DataTypes.INTEGER,
-            unique:true,
-            allowNull:false,
-             primaryKey:true,
-    
-          },
-          timings_id:{
-            type:DataTypes.INTEGER,
-            unique:true,
-            allowNull:false,
-             primaryKey:true,
-          },
-
-location:{
+popularity:{
+    type:DataTypes.INTEGER
+},
+likes:{
+    type:DataTypes.INTEGER
+},
+language:{
+    type:DataTypes.STRING
+},
+region:{
     type:DataTypes.STRING
 }
     }))

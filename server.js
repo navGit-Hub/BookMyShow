@@ -1,3 +1,4 @@
+
 import express from 'express';
 import dotenv from 'dotenv';
 import db from './models/index.js';
@@ -7,8 +8,9 @@ const app=express();
 dotenv.config();
 
 //middleware
-app.use(express.json);
+app.use(express.json());
 app.use(express.urlencoded({extended:true}))
+
 
 
 

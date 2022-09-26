@@ -30,6 +30,13 @@ movie_id:{
      primaryKey:true,
 
   },
+  lib_id:{
+      type:DataTypes.INTEGER,
+      unique:true,
+      allowNull:false,
+       primaryKey:true,
+  
+    }
     }
     )
 }

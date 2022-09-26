@@ -22,7 +22,7 @@ export default (sequelize,{DataTypes})=>{
             allowNull:false,
              primaryKey:true,
           },
-          seats_id:{
+          seat_id:{
             type:DataTypes.INTEGER,
             unique:true,
             allowNull:false,
