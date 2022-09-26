@@ -6,7 +6,7 @@ export default (sequelize,{DataTypes})=>{
             allowNull:false,
              primaryKey:true,
              validate:{
-                noEmpty:true,
+                notEmpty:true,
              }
           }   ,
           position:{

@@ -6,7 +6,7 @@ return sequelize.define('Account_setting',({
         allowNull:false,
          primaryKey:true,
          validate:{
-            noEmpty:true,
+            notEmpty:true,
          }
       },
       user_id:{

@@ -8,7 +8,7 @@ export default (sequelize,{DataTypes})=>{
         allowNull:false,
          primaryKey:true,
          validate:{
-            noEmpty:true,
+            notEmpty:true,
          }
       },
       user_name:{

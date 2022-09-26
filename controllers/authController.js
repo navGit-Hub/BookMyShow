@@ -13,10 +13,15 @@ const User = db.user;
 const register = async (req, res) => {
   try {
     const account = await User.create({
+
+      id:req.body.id,
       user_name: req.body.user_name,
       password: bcrypt.hashSync(req.body.password, 8),
       email: req.body.email,
+      isCritic:req.body.isCritic,
+      location:req.body.location,
       phone_number: req.body.phone_number,
+      profile_picture:req.body.profile_picture
     });
     if (account) res.send({ message: "User was registered successfully!" });
   } catch (err) {
