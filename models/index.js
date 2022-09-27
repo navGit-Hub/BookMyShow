@@ -34,15 +34,15 @@ const db_connect= async ()=>{
 db_connect();
 
 
-(async () => {
-    try{
-    await sequelize.sync({ force: true });
-    console.log("Drop and Resync DB");
-    }
-    catch(ex){
-        console.log("here", ex.message)
-    }
-  })();
+// (async () => {
+//     try{
+//     await sequelize.sync({ force: true });
+//     console.log("Drop and Resync DB");
+//     }
+//     catch(ex){
+//         console.log("here", ex.message)
+//     }
+//   })();
 
 
 const db={}
