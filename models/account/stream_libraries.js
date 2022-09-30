@@ -4,6 +4,7 @@ export default (sequelize,{DataTypes})=>{
     {
       id:{
         type:DataTypes.INTEGER,
+        autoIncrement: true,
         unique:true,
         allowNull:false,
          primaryKey:true,
@@ -18,11 +19,6 @@ export default (sequelize,{DataTypes})=>{
          primaryKey:true,
 
       },
-add_movie:{
-    type:DataTypes.INTEGER,
-    autoIncrement:true,
-     default:0
-},
 movie_id:{
     type:DataTypes.INTEGER,
     unique:true,

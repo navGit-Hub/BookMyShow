@@ -2,6 +2,7 @@ export default (sequelize,{DataTypes})=>{
     return sequelize.define('BookTicket',({
         id:{
             type:DataTypes.INTEGER,
+            autoIncrement: true,
             unique:true,
             allowNull:false,
              primaryKey:true,
@@ -9,35 +10,38 @@ export default (sequelize,{DataTypes})=>{
                 notEmpty:true,
              }
           },
-          ticket_id:{
-            type:DataTypes.INTEGER,
-            unique:true,
-            allowNull:false,
-             primaryKey:true,
-    
-          },
           user_id:{
             type:DataTypes.INTEGER,
             unique:true,
             allowNull:false,
              primaryKey:true,
-    
           },
-          movie_id:{
-            type:DataTypes.INTEGER,
+          movie_name:{
+            type:DataTypes.STRING,
             unique:true,
             allowNull:false,
-             primaryKey:true,
           },
-          theater_id:{
-            type:DataTypes.INTEGER,
+          theater_name:{
+            type:DataTypes.STRING,
             unique:true,
             allowNull:false,
-             primaryKey:true,
-    
           },
+time:{
+type:DataTypes.TIME,
+allowNull:false
+},
+number_of_tickets:{
+   type:DataTypes.INTEGER,
+   allowNull:false
+},
+seats:{
+   type:DataTypes.STRING,
+   allowNull:false
+}
+,
 mode_of_payment:{
-    type:DataTypes.STRING
+    type:DataTypes.STRING,
+    allowNull:false
 }
     }))
     }

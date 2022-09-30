@@ -5,7 +5,7 @@ import {book,payment,ticket,timing} from './bookings/index.js'
 import {general_events,movies,stream_movies,theater_movies,recommended_movies} from './movies/index.js';
 import {review} from './reviews/index.js';
 import {screens,seats,theater} from './theater/index.js';
-
+import verify from './verification/verification.js'
 
 
 dotenv.config();
@@ -34,7 +34,7 @@ const db_connect= async ()=>{
 db_connect();
 
 
-// (async () => {
+//  (async () => {
 //     try{
 //     await sequelize.sync({ force: true });
 //     console.log("Drop and Resync DB");
@@ -82,6 +82,10 @@ db.screens=screens(sequelize,Sequelize);
 db.seats=seats(sequelize,Sequelize);
 
 
+
+//verification
+db.verify=verify(sequelize,Sequelize);
+
 //relations
 
 //account_settings
@@ -112,17 +116,7 @@ db.purchase_history.belongsTo(db.account_settings,{
 
 //book_tickets
 
-db.book.hasMany(db.ticket,{
-    foreignKey:"ticket_id",
-    onDelete:"CASCADE",
-    onUpdate:"CASCADE"
-  })
-  
-  db.ticket.belongsTo(db.book,{
-      foreignKey:"ticket_id",
-      onDelete:"CASCADE",
-      onUpdate:"CASCADE"
-  })
+
   db.book.hasMany(db.user,{
     foreignKey:"user_id",
     onDelete:"CASCADE",
@@ -136,17 +130,6 @@ db.book.hasMany(db.ticket,{
   })
 
 
-  db.book.hasMany(db.theater,{
-    foreignKey:"theater_id",
-    onDelete:"CASCADE",
-    onUpdate:"CASCADE"
-  })
-  
-  db.theater.belongsTo(db.book,{
-      foreignKey:"theater_id",
-      onDelete:"CASCADE",
-      onUpdate:"CASCADE"
-  })
 
 
 //theater_movies
@@ -337,85 +320,16 @@ db.screens.belongsTo(db.theater,{
     onUpdate:"CASCADE"
 })
 
-db.theater.hasMany(db.seats,{
-    foreignKey:"seat_id",
-    onDelete:"CASCADE",
-    onUpdate:"CASCADE"
-})
 
 
-db.seats.belongsTo(db.theater,{
-    foreignKey:"seat_id",
-    onDelete:"CASCADE",
-    onUpdate:"CASCADE"
-})
-
-db.theater.hasMany(db.screens,{
-    foreignKey:"screen_id",
-    onDelete:"CASCADE",
-    onUpdate:"CASCADE"
-})
-
-db.screens.belongsTo(db.theater,{
-    foreignKey:"screen_id",
-    onDelete:"CASCADE",
-    onUpdate:"CASCADE"
-})
-
-db.theater.hasMany(db.theater_movies,{
-    foreignKey:"theatrical_movies_id",
-    onDelete:"CASCADE",
-    onUpdate:"CASCADE"
-})
-
-
-db.theater_movies.belongsTo(db.theater,{
-    foreignKey:"theatrical_movies_id",
-    onDelete:"CASCADE",
-    onUpdate:"CASCADE"
-})
-
-db.theater.hasMany(db.timing,{
-    foreignKey:"timing_id",
-    onDelete:"CASCADE",
-    onUpdate:"CASCADE"
-})
-
-db.timing.belongsTo(db.theater,{
-    foreignKey:"timing_id",
-    onDelete:"CASCADE",
-    onUpdate:"CASCADE"
-})
 
 
 //general_events
 
-db.general_events.hasMany(db.user,{
-    foreignKey:"user_id",
-    onDelete:"CASCADE",
-    onUpdate:"CASCADE"
-})
+//none for now
 
 
-db.user.belongsTo(db.general_events,{
-    foreignKey:"user_id",
-    onDelete:"CASCADE",
-    onUpdate:"CASCADE"
-})
 
-
-db.general_events.hasMany(db.book,{
-    foreignKey:"book_id",
-    onDelete:"CASCADE",
-    onUpdate:"CASCADE"
-})
-
-
-db.book.belongsTo(db.general_events,{
-    foreignKey:"book_id",
-    onDelete:"CASCADE",
-    onUpdate:"CASCADE"
-})
 
 //purchase_history
 
@@ -514,7 +428,60 @@ db.seats.belongsTo(db.ticket,{
     onUpdate:"CASCADE"
 })
 
+//verify
 
+db.verify.hasMany(db.user,{
+    foreignKey:"user_id",
+    onDelete:"CASCADE",
+    onUpdate:"CASCADE" 
+})
+
+db.user.belongsTo(db.verify,{
+    foreignKey:"user_id",
+    onDelete:"CASCADE",
+    onUpdate:"CASCADE" 
+})
+
+//screens
+
+db.screens.hasMany(db.seats,{
+    foreignKey:"seat_id",
+    onDelete:"CASCADE",
+    onUpdate:"CASCADE"
+})
+
+
+db.seats.belongsTo(db.screens,{
+    foreignKey:"seat_id",
+    onDelete:"CASCADE",
+    onUpdate:"CASCADE"
+})
+
+
+db.screens.hasMany(db.theater,{
+    foreignKey:"theater_id",
+    onDelete:"CASCADE",
+    onUpdate:"CASCADE"
+})
+
+
+db.theater.belongsTo(db.screens,{
+    foreignKey:"theater_id",
+    onDelete:"CASCADE",
+    onUpdate:"CASCADE"
+})
+
+db.screens.hasMany(db.timing,{
+    foreignKey:"timing_id",
+    onDelete:"CASCADE",
+    onUpdate:"CASCADE"
+})
+
+db.timing.belongsTo(db.screens,{
+    foreignKey:"timing_id",
+    onDelete:"CASCADE",
+    onUpdate:"CASCADE"
+})
 
 export  default db;
 

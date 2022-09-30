@@ -1,7 +1,6 @@
 import db from "../models/index.js";
 
-const getMovies=async (req,res)=>{
-console.log(req.que)
+const getMoviesByGenre=async (req,res)=>{
 try {
     
 const movie=await db.movies.findAll({
@@ -9,7 +8,7 @@ const movie=await db.movies.findAll({
         genre:req.query["genre"]
     }
 })
-console.log(movie)
+
 
 if(movie)
 res.send(movie)
@@ -18,12 +17,9 @@ res.send(movie)
     res.status(500).send({msg:error.message})
 }
 
-
 }
 
-const getGeneralEvents=async (req,res)=>{
-
-    console.log(req.query)
+const getGeneralEventsByOutline=async (req,res)=>{
     try {
      
         const general_events=await db.general_events.findAll({
@@ -35,15 +31,54 @@ const getGeneralEvents=async (req,res)=>{
         res.send(general_events)
         
         } catch (error) {
-            res.status(500).send({msg:error.message})
+            res.status(500).send({message:error.message})
         }
-        
+}
+
+const getAllGeneralEvents=async (req,res)=>{
+  
+    try {
+         const allEvents=await db.general_events.findAll({});
+
+              res.status(200).send(allEvents);
+
+    } catch (error) {
+       res.status(500).send({message:error.message});
+    }
+
+}
+
+const getAllMovies=async (req,res)=>{
+
+try {
+     
+    const allMovies=await db.movies.findAll({
+        where:{
+            isStreaming:false
+        }
+    });
 
 
 
+
+   res.status(200).send(allMovies);
+
+} catch (error) {
+
+    res.status(500).send({message:error})
+
+}
 
 }
 
 
-export {getMovies,getGeneralEvents}
+//const getReviews=async ()
+
+
+
+
+
+
+
+export {getMoviesByGenre,getGeneralEventsByOutline,getAllGeneralEvents,getAllMovies}
 

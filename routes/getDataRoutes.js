@@ -1,14 +1,16 @@
 import express from 'express';
 
-import {getMovies,getGeneralEvents} from '../controllers/getDataController.js';
+import {getMoviesByGenre,getGeneralEventsByOutline,getAllGeneralEvents,getAllMovies} from '../controllers/getDataController.js';
 
 
 const router=express.Router();
 
+router.route('/getMoviesByGenre').get(getMoviesByGenre);
 
-router.route('/getMovies').get(getMovies);
+router.route('/getGeneralEventsByOutline').get(getGeneralEventsByOutline);
 
-router.route('/getGeneralEvents').get(getGeneralEvents);
+router.route('/getAllMovies').get(getAllMovies)
 
+router.route('/getAllGeneralEvents').get(getAllGeneralEvents);
 
 export default router;

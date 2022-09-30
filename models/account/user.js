@@ -4,6 +4,7 @@ export default (sequelize,{DataTypes})=>{
     {
       id:{
         type:DataTypes.INTEGER,
+        autoIncrement: true,
         unique:true,
         allowNull:false,
          primaryKey:true,
@@ -36,6 +37,9 @@ export default (sequelize,{DataTypes})=>{
       },
       profile_picture:{
         type:DataTypes.STRING
+      },
+      verified:{
+        type:DataTypes.BOOLEAN,
       }
       
 })}

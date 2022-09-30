@@ -1,13 +1,13 @@
 import express from 'express';
 
-import {addMovie,addGeneralEvent} from '../controllers/addDataController.js';
+import {addMovies,addGeneralEvents} from '../controllers/addDataController.js';
 
 const router=express.Router();
 
 
-router.route('/addMovie').post(addMovie);
+router.route('/addMovies').post(addMovies);
 
-router.route('/addGeneralEvent').post(addGeneralEvent);
+router.route('/addGeneralEvents').post(addGeneralEvents);
 
 
 export default router;

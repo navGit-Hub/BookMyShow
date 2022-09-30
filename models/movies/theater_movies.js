@@ -2,6 +2,7 @@ export default (sequelize,{DataTypes})=>{
     return sequelize.define('TheaterMovie',({
         id:{
             type:DataTypes.INTEGER,
+            autoIncrement: true,
             unique:true,
             allowNull:false,
              primaryKey:true,
