@@ -3,6 +3,8 @@ import {body,validationResult} from 'express-validator';
 
 import { register,login,verifyOtp } from "../controllers/authController.js";
 
+import verifyRegister from '../middleware/verifyRegister.js'
+
 const router=express.Router();
 
 router.route('/login').post(body('user_name').isLength({min:5}),
@@ -13,7 +15,7 @@ router.route('/register').post(body('user_name').isLength({min:5}),
 
 body("email").isEmail()
 ,body('password').isLength({min:5}),
-body('phone_number').isLength({min:10}),register)
+body('phone_number').isLength({min:10}),verifyRegister,register)
 
 router.route('/verify').post(verifyOtp);
 
