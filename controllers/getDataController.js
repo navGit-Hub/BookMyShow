@@ -1,11 +1,14 @@
 import db from "../models/index.js";
 
-const getMoviesByGenre=async (req,res)=>{
+const getMoviesCustom=async (req,res)=>{
 try {
     
+        const searchParam=req.query["searchParam"]
+
+        console.log(req.query)
 const movie=await db.movies.findAll({
     where:{
-        genre:req.query["genre"]
+        [searchParam]:req.query["searchTerm"]
     }
 })
 
@@ -19,12 +22,15 @@ res.send(movie)
 
 }
 
-const getGeneralEventsByOutline=async (req,res)=>{
+const getGeneralEventsCustom=async (req,res)=>{
     try {
      
+     
+        const searchParam=req.query["searchParam"];
+
         const general_events=await db.general_events.findAll({
             where:{
-                event_outline:req.query["event_outline"]
+                [searchParam]:req.query["searchTerm"]
             }
         })
         if(general_events)
@@ -59,8 +65,6 @@ try {
     });
 
 
-
-
    res.status(200).send(allMovies);
 
 } catch (error) {
@@ -71,14 +75,57 @@ try {
 
 }
 
+const getReviews=async (req,res)=>{
 
-//const getReviews=async ()
+try {
+    const reviews=await db.reviews.findAll({
+        where:{
+            movie_name:req.query['movie_name']
+        }
+    })
 
+    if(reviews)
+        res.send(reviews);
 
+} catch (error) {
+       res.status(500).send({msg:error.message});
+}
 
+}
 
+const getRecommendedMovies=async (req,res)=>{
 
+    try {
+        const recommended_movies=await db.recommended_movies.findAll({});
+    
+        console.log(recommended_movies)
+    
+        const altered_recommended_movies=recommended_movies.filter(movie=>{
+    
+           const user=db.user.findOne({
+            where:{
+                id:req.query['user_id']
+            }
+           })
+           if(user.id===movie.user_id)
+             return movie;
+        })
+    
+      if(altered_recommended_movies.length>5)
+            res.send(altered_recommended_movies);
+    
+      res.send(recommended_movies);
+    
+    } catch (error) {
+        res.status(500).send({msg:error.message})
+    }
+    
+    }
 
-
-export {getMoviesByGenre,getGeneralEventsByOutline,getAllGeneralEvents,getAllMovies}
-
+export {getMoviesCustom,
+    getGeneralEventsCustom,
+    getAllGeneralEvents,
+    getAllMovies,
+    getReviews,
+    getRecommendedMovies
+}

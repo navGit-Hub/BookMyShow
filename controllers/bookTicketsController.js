@@ -5,14 +5,14 @@ const bookMovieTickets=async (req,res)=>{
     try{
    //verify movie
 
-   const movie=db.movies.findOne({
+   const movie=await db.movies.findOne({
     where:{
         movie_name:req.body.movie_name
     }
 })
    //verify theater
 
-   const theater=db.theater.findOne({
+   const theater=await db.theater.findOne({
     where:{
         theater_name:req.body.theater_name
     }
@@ -20,21 +20,21 @@ const bookMovieTickets=async (req,res)=>{
 
 //verify screen
 
-const screen=db.theater.findOne({
+const screen=await db.theater.findOne({
     where:{
         theater_id:theater.id
     }
 })
 
    //verify seats
-const seats=db.theater.findOne({
+const seats=await db.theater.findOne({
     where:{
            id:screen.seat_id
     }
 })
    //verify timing
 
-const timing=db.timing.findOne({
+const timing=await db.timing.findOne({
     where:{
           id:screen.timings_id,
     }
@@ -43,7 +43,6 @@ if(!screen.isFree || !movie || !theater || !screen || !seats || !timing)
 {
     throw Error('Sorry the Booking cannot be processed!!')
 }
-
 
         const book=await db.book.create({
            user_id:req.body.user_id,

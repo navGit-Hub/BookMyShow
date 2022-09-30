@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import nodemailer from 'nodemailer';
 
 import dotenv from 'dotenv';
+import { validationResult } from "express-validator";
 
 
 dotenv.config();
@@ -20,11 +21,13 @@ service:"Gmail",
   }}
 )
 const register = async (req, res) => {
+  const errors=validationResult(req);
+  if(!errors.isEmpty())
+         return res.status(400).json({errors:errors.array()})
   try {
 
         const critic=req.body.isCritic || false;
-
-
+        const location=req.body.location || "Chennai";
 
 
     const account = await User.create({
@@ -32,13 +35,15 @@ const register = async (req, res) => {
       password: bcrypt.hashSync(req.body.password, 8),
       email: req.body.email,
       isCritic:critic,
-      location:req.body.location,
+      location:location,
       phone_number: req.body.phone_number,
       profile_picture:'Default.jpeg',
       verified:false
     });
     console.log(account.id);
-    sendOtp(account,res);
+if(account)
+   res.send(account);
+    //sendOtp(account,res);
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
@@ -170,13 +175,11 @@ const verifyOtp= async(req,res)=>{
       });
   }
 }
-
-
-
-
-
-
 const login = async (req, res) => {
+  
+  const errors=validationResult(req);
+  if(!errors.isEmpty())
+         return res.status(400).json({errors:errors.array()})
   try {
     let account = await User.findOne({
       where: {
@@ -198,46 +201,6 @@ const login = async (req, res) => {
    let token = jwt.sign({ id: account.id }, process.env.JWT_SECRET, {
       expiresIn: 86400,
     });
-    // let update=await Verify.create({
-    // user_id:account.id,
-    // token
-    //     })
-    //     console.log(update);
-//     let token=Verify.findOne({
-//       where:{
-//         user_id:account.id
-//       }
-//     }).token;
-
-// console.log(token)
-
-// if(!token)
-// {
-//      token = jwt.sign({ id: account.id }, process.env.JWT_SECRET, {
-//       expiresIn: 86400,
-//     });
-//     console.log("Is it here!!")
-//   let verify=await Verify.create({
-
-//     user_id:account.id,
-//     token
-
-//   })
-//   console.log("Hello",verify,account.id);
-//   }
-
-// try {
-//   jwt.verify(token,process.env.JWT_SECRET)
-// } catch (error) {
-//   let prev=token;
-//   token = jwt.sign({ id: account.id }, process.env.JWT_SECRET, {
-//     expiresIn: 86400,
-//   });
-
-//     console.log("Token Updated :",update);
-// }
-
-
 res.setHeader("Set-Cookie", `jwt=${token};Path=/;HttpOnly`);
 
 

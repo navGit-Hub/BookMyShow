@@ -32,6 +32,9 @@ export default (sequelize,{DataTypes})=>{
      isStreaming:{
         type:DataTypes.BOOLEAN
      },
+     language:{
+       type:DataTypes.STRING
+     },
      certificate:{
         type:DataTypes.STRING
      }
