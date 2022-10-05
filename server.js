@@ -9,6 +9,8 @@ import addData from './routes/addDataRoutes.js'
 import getData from './routes/getDataRoutes.js'
 import bookTickets from './routes/bookTicketsRoutes.js'
 
+import cors from 'cors';
+
 
 
 const app=express();
@@ -17,6 +19,7 @@ dotenv.config();
 
 //middleware
 app.use(express.json());
+app.use(cors())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser());
 

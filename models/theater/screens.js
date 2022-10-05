@@ -34,6 +34,10 @@ export default (sequelize,{DataTypes})=>{
      },
      isFree:{
         type:DataTypes.BOOLEAN
+     },
+     screen_no:{
+      type:DataTypes.INTEGER,
+      allowNull:false
      }
 
     }))

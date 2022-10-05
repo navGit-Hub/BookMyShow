@@ -29,7 +29,10 @@ export default (sequelize,{DataTypes})=>{
           allowNull:false
       },
       phone_number:{
-           type:DataTypes.BIGINT,  
+           type:DataTypes.STRING,
+           validate:{
+            len:10
+           }
       },
       isCritic:{
         type:DataTypes.BOOLEAN,

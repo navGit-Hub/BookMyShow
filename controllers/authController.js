@@ -30,6 +30,9 @@ const register = async (req, res) => {
         const location=req.body.location || "Chennai";
 
 
+console.log(req.body)
+
+
     const account = await User.create({
       user_name: req.body.user_name,
       password: bcrypt.hashSync(req.body.password, 8),

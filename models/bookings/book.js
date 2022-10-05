@@ -42,6 +42,9 @@ seats:{
 mode_of_payment:{
     type:DataTypes.STRING,
     allowNull:false
+},
+date:{
+   type:DataTypes.DATE
 }
     }))
     }

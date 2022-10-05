@@ -31,8 +31,7 @@ const db_connect= async ()=>{
 }
 
 
-db_connect();
-
+// db_connect();
 
 //  (async () => {
 //     try{

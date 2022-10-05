@@ -21,6 +21,11 @@ allowNull:false
              primaryKey:true,
     
           },
+          date:{
+            type:DataTypes.DATEONLY,
+            allowNull:false
+           }
+          ,
 location:{
     type:DataTypes.STRING
 }
