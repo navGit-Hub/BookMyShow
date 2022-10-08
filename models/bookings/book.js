@@ -12,17 +12,15 @@ export default (sequelize,{DataTypes})=>{
           },
           user_id:{
             type:DataTypes.INTEGER,
-            unique:true,
             allowNull:false,
           },
           movie_name:{
             type:DataTypes.STRING,
-            unique:true,
+
             allowNull:false,
           },
           theater_name:{
             type:DataTypes.STRING,
-            unique:true,
             allowNull:false,
           },
 time:{

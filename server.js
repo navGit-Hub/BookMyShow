@@ -11,7 +11,9 @@ import bookTickets from './routes/bookTicketsRoutes.js'
 
 import cors from 'cors';
 
+import { populateDB } from './models/seed.js';
 
+//populateDB();
 
 const app=express();
 

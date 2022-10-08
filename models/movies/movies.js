@@ -14,7 +14,6 @@ export default (sequelize,{DataTypes})=>{
             type:DataTypes.INTEGER,
             unique:true,
             allowNull:false,
-             primaryKey:true,
     
           },
         title:{
@@ -39,8 +38,14 @@ export default (sequelize,{DataTypes})=>{
         type:DataTypes.STRING
      },
      image:{
-      type:DataTypes.STRING,
-      allowNull:false
+      type:DataTypes.STRING(1000),
+      defaultValue:"Default.jpeg",
+      allowNull:false,
+      validate:{
+         len:{
+            args:[0,1000]
+         }
+      }
      }
     }))
     }

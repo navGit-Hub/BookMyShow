@@ -24,43 +24,57 @@ const bookMovieTickets=async (req,res)=>{
 
    const user=await db.user.findOne({
     where:{
-        id:req.body.user_id
+        id:req.body.user_id,
+        email:"naveenmuthu05@gmail.com"
     }
    })
 
-console.log(user)
+//console.log(user.email)
 
 
-   //verify movie
+
 
        
    //verify theater
 
    const theater=await db.theater.findOne({
-    where:{
-        theater_name:req.body.theater_name,
-        movie_name:req.body.movie_name
-    }
+where:{
+    theater_name:req.body.theater_name,
+    location:req.body.location
+}
    })
 
+   //console.log(theater.dataValues.id)
 //verify screen
 
-const screen=await db.theater.findOne({
+
+const theater_id=theater.dataValues.id;
+//console.log(theater_id)
+
+const screen=await db.screens.findOne({
     where:{
-        theater_id:theater.id,
-        screen_no:req.body.screen_no
+        theater_id,
+        screen_no:req.body.screen_no,
+        movie_name:req.body.movie_name
     }
 })
+//console.log(screen.dataValues.id)
+const screen_id=screen.dataValues.id;
 
    //verify seats
 
    const timing=await db.timing.findOne({
     where:{
-          theater_id:theater.id,
+          theater_id,
+          screen_id,
           movie_name:req.body.movie_name,
-          time_slots:req.body.time_slot
     }
 })
+
+
+//console.log(timing.dataValues.time_slot)
+
+
 if(!timing)
    throw new Error("The timings are not available!!")
 
@@ -72,130 +86,148 @@ const seats=req.body.seats.split(" ");
 const seat_ids=[];
 
 
-seats.forEach(async seat=>{
+seats.forEach(async seat_no=>{
 
 const single_seat=await db.seats.findOne({
     where:{
-        theater_id:theater.id,
-        screen_id:screen.id
+        theater_id,
+        screen_id,
+        seat_no
     }
 })
-    seat_ids.push(single_seat.id);
+//console.log(single_seat)
+    const seat_id=single_seat.dataValues.id;
+    //console.log(seat_id);
+
+    seat_ids.push(seat_id)
 db.seats.update({isBooked:true},{
     where:{
-        id:single_seat.id
+        id:seat_id
     }
 })
 })
 
 
-
-// const seats=await db.theater.findOne({
-//     where:{
-//            seat_no:"1A",
-//            theater_id:theater.id,
-//            screen_id:screen.id
-//     }
-// })
-   //verify timing
+//console.log(seat_ids)
 
 
 
 
 
-   if(!screen.isFree || !theater || !screen || !timing)
+  if(screen.dataValues.isFree || !theater || !screen || !timing)
 {
     throw Error('Sorry the Booking cannot be processed!!')
 }
 
 
-const book_id="";
-
-setTimeout(async ()=>{
+let book_id="";
 
 
-const payment=await db.payment.findOne({
-    where:{
-        book_id
-    }
-})
-
-
-
-if(!payment.payment_status)
-       {
-
-           seat_ids.forEach(async seat_id=>{
-
-             await db.seats.update({isBooked:false},{
-                where:{
-                      id:seat_id
-                }
-              })
-
-           })
-         
-
-  await  db.payment.destroy({
-    where:{
-        book_id
-    }
-   })
-   await db.book.destroy({
-    where:{
-        id:book_id
-    }
-   })
-
-
-       }
-},50000)
         const book=await db.book.create({
            user_id:req.body.user_id,
            movie_name:req.body.movie_name,
            theater_name:req.body.theater_name,
-        time:req.body.time,
+        time:req.body.time_slot,
         number_of_tickets:req.body.number_of_tickets,
         mode_of_payment:req.body.mode_of_payment,       
         seats:req.body.seats,
 date:req.body.date
         })
 
-       db.payment.create({ book_id:book.id,})
+        //console.log(book);
+        res.send(book)
+book_id=book.dataValues.id;
+       const payment=await db.payment.create({ book_id})
         
-book_id=book.id;
+//console.log(payment);
 
+setTimeout(async ()=>{
 
-        console.log(book)
-        if(book)
-        {
-
-        const mailOptions={
-       from:'naveenmuthu05@gmail.com',
-        to:user.email, 
-        subject:"your tickets have been booked successfully!!",
-        html:`
-        <p>Enjoy your show!! ${book.number_of_tickets} tickets (${book.seats})
-         have been booked for the movie ${book.movie_name} at ${book.theater_name} on ${book.date}.</p>`
+console.log(seat_ids)
+    const payment=await db.payment.findOne({
+        where:{
+            book_id
         }
-         
- transporter.sendMail(mailOptions,(error,info)=>{
+    })
+    console.log(payment)
+    
+    
+    if(!payment.dataValues.payment_status)
+           {
+            console.log("hello")
+    
+try {
+    seat_ids.forEach(async seat_id=>{
+    
+        await db.seats.update({isBooked:false},{
+           where:{
+                 id:seat_id
+           }
+         })
 
-if(error)
-{
-    console.log("Failed to send Mail!!")
+      })
+    
+
+await  db.payment.destroy({
+where:{
+   book_id
 }
-console.log(`Message ${info.messageId} was sent successfully ${info.response}`)
-
 })
+await db.book.destroy({
+where:{
+   id:book_id
+}
+})
+    
+} catch (error) {
+    console.log(error.message)
+}
+    
+    
+           }
+    },10000)
 
-console.log("sending mail.....")
 
-            res.send(book);
-        }
+
+
+
+
+
+
+
+
+
+
+//         console.log(book)
+//         if(book)
+//         {
+
+//         const mailOptions={
+//        from:'naveenmuthu05@gmail.com',
+//         to:user.email, 
+//         subject:"your tickets have been booked successfully!!",
+//         html:`
+//         <p>Enjoy your show!! ${book.number_of_tickets} tickets (${book.seats})
+//          have been booked for the movie ${book.movie_name} at ${book.theater_name} on ${book.date}.</p>`
+//         }
+         
+//  transporter.sendMail(mailOptions,(error,info)=>{
+
+// if(error)
+// {
+//     console.log("Failed to send Mail!!")
+// }
+// console.log(`Message ${info.messageId} was sent successfully ${info.response}`)
+
+// })
+
+// console.log("sending mail.....")
+
+//             res.send(book);
+//         }
 } 
 catch (error) {
-    console.log("Hello")
+    console.log(error)
     res.status(500).send({msg:error.message})
 }
 

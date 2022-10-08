@@ -27,7 +27,7 @@ dotenv.config();
 const verifyToken = (req, res, next) => {
   let token = req.cookies.jwt || req.headers["x-access-token"];
   // console.log(req.cookies.jwt);
-console.log(token)
+//console.log(token)
 
 
 

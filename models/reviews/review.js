@@ -10,6 +10,12 @@ export default (sequelize,{DataTypes})=>{
                 notEmpty:true,
              }
           },
+          review:{
+            type:DataTypes.STRING,
+            allowNull:false
+          }
+
+          ,
           movie_name:{
             type:DataTypes.STRING
           },

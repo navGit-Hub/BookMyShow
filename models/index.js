@@ -44,7 +44,8 @@ db_connect();
 //     catch(ex){
 //         console.log("here", ex.message)
 //     }
-//   })();
+//   })(); 
+
 
 
 const db={}
@@ -148,14 +149,6 @@ db.user.belongsTo(db.purchased_movies,{
       onDelete:"CASCADE",
       onUpdate:"CASCADE"
   })
-
-
-
-
-//theater_movies
-
-
-
 
 
 //profile
@@ -280,9 +273,47 @@ db.user.belongsTo(db.reviews,{
 
 
 
+db.timing.hasMany(db.theater,{
+     foreignKey:"theater_id",
+     onDelete:"CASCADE",
+     OnUpdate:"CASCADE"
+})
+
+db.theater.belongsTo(db.timing,{
+    foreignKey:"theater_id",
+    onDelete:"CASCADE",
+    onUpdate:"CASCADE"
+})
+
+db.timing.hasMany(db.screens,{
+    foreignKey:"screen_id",
+    onDelete:"CASCADE",
+    OnUpdate:"CASCADE"
+})
+
+db.screens.belongsTo(db.timing,{
+   foreignKey:"screen_id",
+   onDelete:"CASCADE",
+   onUpdate:"CASCADE"
+})
 
 
-//theater
+
+
+
+
+
+//theater-screen relationship
+
+
+
+
+
+
+
+db.theater.belongsToMany(db.screens,{through:"screen_movies"});
+db.screens.belongsToMany(db.theater,{through:"screen_movies"});
+
 
 
 
@@ -341,7 +372,7 @@ db.book.belongsTo(db.payment,{
 })
 
 
-//ticket
+
 
 
 
@@ -376,17 +407,30 @@ db.theater.belongsTo(db.screens,{
     onUpdate:"CASCADE"
 })
 
-db.screens.hasMany(db.timing,{
-    foreignKey:"timing_id",
-    onDelete:"CASCADE",
-    onUpdate:"CASCADE"
-})
 
-db.timing.belongsTo(db.screens,{
-    foreignKey:"timing_id",
-    onDelete:"CASCADE",
-    onUpdate:"CASCADE"
-})
+
+
+
+//screen theater manyToMany through seats
+
+
+// db.screens.belongsToMany(db.theater,{through:db.seats});
+// db.theater.belongsToMany(db.screens,{through:db.seats});
+
+
+
+//screen-timings can have manyToMany
+
+
+
+//one screen can have various time slots and many time slots can have a single screen
+
+db.screens.belongsToMany(db.timing,{through:"screen_timing"});
+db.timing.belongsToMany(db.screens,{through:"screen_timing"});
+
+
+
+
 
 // seats
 
@@ -397,10 +441,26 @@ db.seats.hasOne(db.screens,{
 })
 
 db.screens.belongsTo(db.seats,{
-    foreignKey:"seat_id",
+    foreignKey:"screen_id",
     onDelete:"CASCADE",
     onUpdate:"CASCADE"
 })
+
+db.seats.hasOne(db.theater,{
+    foreignKey:"theater_id",
+    onDelete:"CASCADE",
+    onUpdate:"CASCADE"
+})
+
+
+db.theater.belongsTo(db.seats,{
+    foreignKey:"theater_id",
+    onDelete:"CASCADE",
+    onUpdate:"CASCADE"
+})
+
+
+
 
 
 

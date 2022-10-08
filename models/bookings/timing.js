@@ -20,7 +20,13 @@ movie_name:{
     theater_id:{
       type:DataTypes.INTEGER,
     },
-      time_slots:{
+    screen_id:{
+      type:DataTypes.INTEGER,
+    }
+    
+    
+    ,
+      time_slot:{
         type:DataTypes.TIME
       }
     
@@ -28,3 +34,37 @@ movie_name:{
     
     
     }
+
+
+//seat table - one screen has many seats and many screens can as well
+// have many seats how to maintain the seat tables??!
+
+
+// many to many screen and theater
+
+//create a temp table with screen and theater associate with new table aka seat_table with seat_no
+
+
+
+
+
+
+
+
+
+
+
+//user table
+
+// theater table
+
+//screen table
+
+//seats table
+
+//timings table
+
+
+
+
+

@@ -10,13 +10,16 @@ export default (sequelize,{DataTypes})=>{
                 notEmpty:true,
              }
           },
-screen_id:{
-  type:DataTypes.INTEGER,
-
-},
 //try many to many
 
-
+   theater_id:{
+    type:DataTypes.INTEGER,
+    allowNull:false
+   },
+   screen_id:{
+    type:DataTypes.INTEGER,
+    allowNull:false
+   },
       seat_no:{
             type:DataTypes.STRING,
           },

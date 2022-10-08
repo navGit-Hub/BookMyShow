@@ -49,4 +49,36 @@ res.send({message:"The events were added successfully!!"})
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export {addMovies,addGeneralEvents};
