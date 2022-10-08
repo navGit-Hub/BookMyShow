@@ -1,5 +1,5 @@
 export default (sequelize,{DataTypes})=>{
-    return sequelize.define('Review',({
+    return sequelize.define('Advertisement',({
         id:{
             type:DataTypes.INTEGER,
             autoIncrement: true,
@@ -10,16 +10,12 @@ export default (sequelize,{DataTypes})=>{
                 notEmpty:true,
              }
           },
-          movie_name:{
+         image:{
             type:DataTypes.STRING
-          },
-          user_id:{
-            type:DataTypes.INTEGER,
-            unique:true,
-            allowNull:false,
-    
-          },
-
+         },
+      date:{
+        type:DataTypes.DATE
+      }
     }))
     
     

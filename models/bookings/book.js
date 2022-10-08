@@ -14,7 +14,6 @@ export default (sequelize,{DataTypes})=>{
             type:DataTypes.INTEGER,
             unique:true,
             allowNull:false,
-             primaryKey:true,
           },
           movie_name:{
             type:DataTypes.STRING,

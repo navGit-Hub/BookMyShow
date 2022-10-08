@@ -37,6 +37,10 @@ export default (sequelize,{DataTypes})=>{
      },
      certificate:{
         type:DataTypes.STRING
+     },
+     image:{
+      type:DataTypes.STRING,
+      allowNull:false
      }
     }))
     }

@@ -14,14 +14,14 @@ return sequelize.define('Account_setting',({
         type:DataTypes.INTEGER,
         unique:true,
         allowNull:false,
-         primaryKey:true,
+         
 
       },
       purchase_id:{
         type:DataTypes.INTEGER,
         unique:true,
         allowNull:false,
-         primaryKey:true,
+       
       },
 }))
 

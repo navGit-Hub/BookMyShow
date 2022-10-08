@@ -14,18 +14,6 @@ export default (sequelize,{DataTypes})=>{
       type:DataTypes.STRING,
 allowNull:false
       },
-          screen_id:{
-            type:DataTypes.INTEGER,
-            unique:true,
-            allowNull:false,
-             primaryKey:true,
-    
-          },
-          date:{
-            type:DataTypes.DATEONLY,
-            allowNull:false
-           }
-          ,
 location:{
     type:DataTypes.STRING
 }

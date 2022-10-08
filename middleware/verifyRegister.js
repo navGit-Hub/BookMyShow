@@ -19,17 +19,17 @@ const verifyRegister = async (req, res, next) => {
       return;
     }
 
-    user = await User.findOne({
-      where: {
-        phone_number: req.body.phone_number,
-      },
-    });
-    if (user) {
-      res.status(400).send({
-        message: "Failed! This phone number is already taken!",
-      });
-      return;
-    }
+    // user = await User.findOne({
+    //   where: {
+    //     phone_number: req.body.phone_number,
+    //   },
+    // });
+    // if (user) {
+    //   res.status(400).send({
+    //     message: "Failed! This phone number is already taken!",
+    //   });
+    //   return;
+    // }
 
     next();
   } catch (err) {

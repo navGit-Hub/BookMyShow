@@ -11,6 +11,11 @@ const transporter=nodemailer.createTransport({
 })
 
 
+const paymentProcessed=true;
+
+
+
+
 const bookMovieTickets=async (req,res)=>{
 
     try{
@@ -28,16 +33,13 @@ console.log(user)
 
    //verify movie
 
-   const movie=await db.movies.findOne({
-    where:{
-        movie_name:req.body.movie_name
-    }
-})
+       
    //verify theater
 
    const theater=await db.theater.findOne({
     where:{
-        theater_name:req.body.theater_name
+        theater_name:req.body.theater_name,
+        movie_name:req.body.movie_name
     }
    })
 
@@ -45,29 +47,109 @@ console.log(user)
 
 const screen=await db.theater.findOne({
     where:{
-        theater_id:theater.id
+        theater_id:theater.id,
+        screen_no:req.body.screen_no
     }
 })
 
    //verify seats
 
-const seats=await db.theater.findOne({
+   const timing=await db.timing.findOne({
     where:{
-           screen_no:req.body.screen
+          theater_id:theater.id,
+          movie_name:req.body.movie_name,
+          time_slots:req.body.time_slot
     }
 })
+if(!timing)
+   throw new Error("The timings are not available!!")
+
+
+
+
+const seats=req.body.seats.split(" ");
+
+const seat_ids=[];
+
+
+seats.forEach(async seat=>{
+
+const single_seat=await db.seats.findOne({
+    where:{
+        theater_id:theater.id,
+        screen_id:screen.id
+    }
+})
+    seat_ids.push(single_seat.id);
+db.seats.update({isBooked:true},{
+    where:{
+        id:single_seat.id
+    }
+})
+})
+
+
+
+// const seats=await db.theater.findOne({
+//     where:{
+//            seat_no:"1A",
+//            theater_id:theater.id,
+//            screen_id:screen.id
+//     }
+// })
    //verify timing
 
-const timing=await db.timing.findOne({
-    where:{
-          id:screen.timings_id,
-    }
-})
-if(!screen.isFree || !movie || !theater || !screen || !seats || !timing)
+
+
+
+
+   if(!screen.isFree || !theater || !screen || !timing)
 {
     throw Error('Sorry the Booking cannot be processed!!')
 }
 
+
+const book_id="";
+
+setTimeout(async ()=>{
+
+
+const payment=await db.payment.findOne({
+    where:{
+        book_id
+    }
+})
+
+
+
+if(!payment.payment_status)
+       {
+
+           seat_ids.forEach(async seat_id=>{
+
+             await db.seats.update({isBooked:false},{
+                where:{
+                      id:seat_id
+                }
+              })
+
+           })
+         
+
+  await  db.payment.destroy({
+    where:{
+        book_id
+    }
+   })
+   await db.book.destroy({
+    where:{
+        id:book_id
+    }
+   })
+
+
+       }
+},50000)
         const book=await db.book.create({
            user_id:req.body.user_id,
            movie_name:req.body.movie_name,
@@ -78,6 +160,12 @@ if(!screen.isFree || !movie || !theater || !screen || !seats || !timing)
         seats:req.body.seats,
 date:req.body.date
         })
+
+       db.payment.create({ book_id:book.id,})
+        
+book_id=book.id;
+
+
         console.log(book)
         if(book)
         {

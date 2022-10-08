@@ -1,6 +1,6 @@
 export default (sequelize,{DataTypes})=>{
     return sequelize.define(
-    "StreamLibraries",
+    "PurchasedMovies",
     {
       id:{
         type:DataTypes.INTEGER,
@@ -14,25 +14,17 @@ export default (sequelize,{DataTypes})=>{
       },
       user_id:{
         type:DataTypes.INTEGER,
-        unique:true,
         allowNull:false,
        
 
       },
-movie_id:{
-    type:DataTypes.INTEGER,
-    unique:true,
-    allowNull:false,
-  
+      movie_id:{
+        type:DataTypes.INTEGER,
+        unique:true,
+        allowNull:false,
+         
 
-  },
-  lib_id:{
-      type:DataTypes.INTEGER,
-      unique:true,
-      allowNull:false,
-    
-  
-    }
+      }
     }
     )
-}
+    }

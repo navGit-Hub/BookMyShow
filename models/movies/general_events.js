@@ -26,4 +26,6 @@ export default (sequelize,{DataTypes})=>{
     }))
     
     
+
+    
     }

@@ -69,7 +69,7 @@ try {
 
 } catch (error) {
 
-    res.status(500).send({message:error})
+    res.status(500).send({msg:error.message})
 
 }
 
@@ -96,24 +96,13 @@ try {
 const getRecommendedMovies=async (req,res)=>{
 
     try {
-        const recommended_movies=await db.recommended_movies.findAll({});
+        const recommended_movies=await db.recommended_movies.findAll({}).map(async movie=>{
+            return db.movies.findOne({where:{
+                id:movie.movie_id
+            }})
+        });
     
-        console.log(recommended_movies)
-    
-        const altered_recommended_movies=recommended_movies.filter(movie=>{
-    
-           const user=db.user.findOne({
-            where:{
-                id:req.query['user_id']
-            }
-           })
-           if(user.id===movie.user_id)
-             return movie;
-        })
-    
-      if(altered_recommended_movies.length>5)
-            res.send(altered_recommended_movies);
-    
+       
       res.send(recommended_movies);
     
     } catch (error) {
@@ -121,11 +110,61 @@ const getRecommendedMovies=async (req,res)=>{
     }
     
     }
+    
+const getAdverts=async (req,res)=>{
+try {
+
+     const adverts= await db.advertisements.findAll({
+        where:{
+            date:req.query["date"]
+        }
+     })
+res.send(adverts);
+
+    
+} catch (error) {
+    res.status(500).send({msg:error.message})
+}
+
+
+
+}
+
+
+
+const getTimings=async (req,res)=>{
+try {
+    
+    const timeSlot=await db.timing.findAll({
+     where:{
+        movie_name:req.query["movie_name"],
+        theater_name:req.query["theater_name"]
+     }
+    })    
+    
+    res.send(timeSlot)
+
+} catch (error) {
+    
+     res.status(500).send({msg:error.message})
+
+
+}
+
+
+
+}
+
+
+
+
 
 export {getMoviesCustom,
     getGeneralEventsCustom,
     getAllGeneralEvents,
     getAllMovies,
     getReviews,
-    getRecommendedMovies
+    getRecommendedMovies,
+    getAdverts,
+    getTimings
 }

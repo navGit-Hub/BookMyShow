@@ -10,27 +10,20 @@ export default (sequelize,{DataTypes})=>{
                 notEmpty:true,
              }
           },
-          screen_id:{
-            type:DataTypes.INTEGER,
-            unique:true,
-            allowNull:false,
-             primaryKey:true,
-    
-          },
-          movie_id:{
-            type:DataTypes.INTEGER,
-            unique:true,
-            allowNull:false,
-             primaryKey:true,
-          },
-      allotedTime:{
-        type:DataTypes.TIME
-      },
-      available_time:{
+
+          //movie_name theater_name
+movie_name:{
+  type:DataTypes.STRING,
+  allowNull:false
+},
+
+    theater_id:{
+      type:DataTypes.INTEGER,
+    },
+      time_slots:{
         type:DataTypes.TIME
       }
     
-
     }))
     
     

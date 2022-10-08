@@ -10,19 +10,18 @@ export default (sequelize,{DataTypes})=>{
                 notEmpty:true,
              }
           },
-          user_id:{
+          book_id:{
             type:DataTypes.INTEGER,
             unique:true,
             allowNull:false,
-             primaryKey:true,
     
           },
-       payment_method:{
-        type:DataTypes.STRING,
+ 
+       payment_status:{
+        type:DataTypes.BOOLEAN,
+        defaultValue:false
        },
-       saved_devices:{
-        type:DataTypes.INTEGER
-       }
+
 
     }))
     }

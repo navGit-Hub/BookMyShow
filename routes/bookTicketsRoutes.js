@@ -8,7 +8,6 @@ import express from 'express';
 const router=express.Router();
 
 
-
 router.route('/bookMovieTickets').post(verifyToken,bookMovieTickets);
 
 

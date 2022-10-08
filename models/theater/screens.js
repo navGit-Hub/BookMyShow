@@ -10,28 +10,24 @@ export default (sequelize,{DataTypes})=>{
                 notEmpty:true,
              }
           },
-          seat_id:{
-            type:DataTypes.INTEGER,
-            unique:true,
-            allowNull:false,
-             primaryKey:true,
-          },
           theater_id:{
             type:DataTypes.INTEGER,
             unique:true,
             allowNull:false,
-             primaryKey:true,
+     
     
           },
+          movie_name:{
+            type:DataTypes.STRING,
+            allowNull:false
+        },
+        //find the time slot in timing table through timings_id
           timings_id:{
             type:DataTypes.INTEGER,
             unique:true,
             allowNull:false,
-             primaryKey:true,
+       
           },
-     movies:{
-        type:DataTypes.STRING
-     },
      isFree:{
         type:DataTypes.BOOLEAN
      },

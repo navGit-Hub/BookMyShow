@@ -14,14 +14,14 @@ export default (sequelize,{DataTypes})=>{
             type:DataTypes.INTEGER,
             unique:true,
             allowNull:false,
-             primaryKey:true,
+            
     
           },
           movie_id:{
             type:DataTypes.INTEGER,
             unique:true,
             allowNull:false,
-             primaryKey:true,
+            
           },
 popularity:{
     type:DataTypes.INTEGER

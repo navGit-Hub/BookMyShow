@@ -12,17 +12,10 @@ export default (sequelize,{DataTypes})=>{
             notEmpty:true,
          }
       },
-      user_name:{
-        type:DataTypes.STRING,
-        allowNull:false
-      },
+
       email:{
           type:DataTypes.STRING,
           allowNull:false
-      },
-      location:{
-         type:DataTypes.STRING,
-         allowNull:false
       },
       password:{
           type:DataTypes.STRING,
@@ -32,17 +25,26 @@ export default (sequelize,{DataTypes})=>{
            type:DataTypes.STRING,
            validate:{
             len:10
-           }
+           },
+           defaultValue:"Phone Number not provided!!"
       },
       isCritic:{
         type:DataTypes.BOOLEAN,
+        defaultValue:false,
        allowNull:false
       },
       profile_picture:{
-        type:DataTypes.STRING
+        type:DataTypes.STRING,
+        defaultValue:"Default.jpeg"
       },
       verified:{
         type:DataTypes.BOOLEAN,
-      }
-      
+        defaultValue:false
+      },
+  superStar:{
+    type:DataTypes.BOOLEAN,
+    defaultValue:false,
+    allowNull:false
+  }
+       
 })}

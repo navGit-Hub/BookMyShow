@@ -5,7 +5,7 @@ import nodemailer from 'nodemailer';
 
 import dotenv from 'dotenv';
 import { validationResult } from "express-validator";
-
+import emailValidator from 'deep-email-validator';
 
 dotenv.config();
 
@@ -20,28 +20,42 @@ service:"Gmail",
     pass:"atqnkbyqaghpcgrc",
   }}
 )
+
+
+async function  validate_email(email)
+{
+console.log("Hello");
+return emailValidator.validate(email);
+
+
+}
+
+
+
+
+
+
 const register = async (req, res) => {
   const errors=validationResult(req);
+
   if(!errors.isEmpty())
-         return res.status(400).json({errors:errors.array()})
+{  console.log(errors)
+         return res.status(400).json({errors:errors.array()})}
   try {
 
-        const critic=req.body.isCritic || false;
-        const location=req.body.location || "Chennai";
 
 
-console.log(req.body)
 
+const {validators:{regex}}=await validate_email(req.body.email)
+
+if(!regex)
+    throw new Error("The email is not valid!!");
+   
 
     const account = await User.create({
-      user_name: req.body.user_name,
+     
       password: bcrypt.hashSync(req.body.password, 8),
       email: req.body.email,
-      isCritic:critic,
-      location:location,
-      phone_number: req.body.phone_number,
-      profile_picture:'Default.jpeg',
-      verified:false
     });
     console.log(account.id);
 if(account)
@@ -53,7 +67,6 @@ if(account)
 };
 
 const sendOtp=async ({id,email},res)=>{
-
 try {
 
 const otp=`${Math.floor(Math.random()*999999)+10000}`;
@@ -140,7 +153,7 @@ const verifyOtp= async(req,res)=>{
                       });
                   throw new Error ("Code has expired,Please request again");
               }else{
-                     console.log("Hi")
+                     
                   const validOtp=await bcrypt.compareSync(otp,hashedOtp);
                   console.log(validOtp)
 
@@ -150,7 +163,7 @@ const verifyOtp= async(req,res)=>{
 
                       await User.update({verified:true},{
                           where:{
-                              user_id
+                              id:user_id
                           }
                       });
 
@@ -184,15 +197,15 @@ const login = async (req, res) => {
   if(!errors.isEmpty())
          return res.status(400).json({errors:errors.array()})
   try {
-    let account = await User.findOne({
+    let user = await User.findOne({
       where: {
-        user_name: req.body.user_name,
+        email: req.body.email,
       },
     });
 
     const passwordValid = bcrypt.compareSync(
       req.body.password,
-      account.password
+      user.password
     );
     if (!passwordValid) {
       return res.status(401).send({
@@ -201,17 +214,35 @@ const login = async (req, res) => {
       });
     }
 
-   let token = jwt.sign({ id: account.id }, process.env.JWT_SECRET, {
+   let token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
       expiresIn: 86400,
     });
 res.setHeader("Set-Cookie", `jwt=${token};Path=/;HttpOnly`);
 
 
+
+// let user_history=await db.purchase_history.findOne({
+//   where:{
+//     user_id:user.id
+//   }
+// })
+
+// if(user_history)
+
+// if(user_history.booked_tickets)
+//       User.update({superStar:true},{
+//       where:{
+//         id:user.id
+//       }
+
+
+//       })
+
     return res.status(200).send({
-      id: account.id,
-      username: account.user_name,
-      email: account.email,
-      phone_number: account.phone_number,
+      id: user.id,
+      username: user.user_name,
+      email: user.email,
+      phone_number: user.phone_number,
       accessToken: token,
     });
   } catch (err) {

@@ -5,7 +5,9 @@ import {getMoviesCustom,
     getAllGeneralEvents,
     getAllMovies,
 getReviews,
-getRecommendedMovies} from '../controllers/getDataController.js';
+getRecommendedMovies,
+getAdverts,
+getTimings} from '../controllers/getDataController.js';
 
 const router=express.Router();
 
@@ -20,5 +22,12 @@ router.route('/getAllGeneralEvents').get(getAllGeneralEvents);
 router.route('/getReviews').get(getReviews);
 
 router.route('/getRecommendedMovies').get(getRecommendedMovies)
+
+router.route('/getAdvertisements').get(getAdverts)
+
+
+router.route('/getTimings').get(getTimings)
+
+
 
 export default router;

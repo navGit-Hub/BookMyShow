@@ -9,12 +9,20 @@ export default (sequelize,{DataTypes})=>{
              validate:{
                 notEmpty:true,
              }
-          }   ,
-          position:{
+          },
+screen_id:{
+  type:DataTypes.INTEGER,
+
+},
+//try many to many
+
+
+      seat_no:{
             type:DataTypes.STRING,
           },
           isBooked:{
-            type:DataTypes.BOOLEAN
+            type:DataTypes.BOOLEAN,
+            defaultValue:false
           }
 
     }))

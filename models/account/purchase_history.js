@@ -16,7 +16,7 @@ export default (sequelize,{DataTypes})=>{
         type:DataTypes.INTEGER,
         unique:true,
         allowNull:false,
-         primaryKey:true,
+      
 
       },
       booked_tickets:{
