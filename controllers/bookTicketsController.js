@@ -29,11 +29,11 @@ const bookMovieTickets=async (req,res)=>{
     }
    })
 
-//console.log(user.email)
+console.log(user.email)
 
 
 
-
+ 
        
    //verify theater
 
@@ -187,44 +187,30 @@ where:{
            }
     },10000)
 
+        if(book)
+        {
 
-
-
-
-
-
-
-
-
-
-
-//         console.log(book)
-//         if(book)
-//         {
-
-//         const mailOptions={
-//        from:'naveenmuthu05@gmail.com',
-//         to:user.email, 
-//         subject:"your tickets have been booked successfully!!",
-//         html:`
-//         <p>Enjoy your show!! ${book.number_of_tickets} tickets (${book.seats})
-//          have been booked for the movie ${book.movie_name} at ${book.theater_name} on ${book.date}.</p>`
-//         }
+        const mailOptions={
+       from:'naveenmuthu05@gmail.com',
+        to:user.email, 
+        subject:"your tickets have been booked successfully!!",
+        html:`
+        <p>Enjoy your show!! ${book.number_of_tickets} tickets (${book.seats})
+         have been booked for the movie ${book.movie_name} at ${book.theater_name} on ${book.date}.</p>`
+        }
          
-//  transporter.sendMail(mailOptions,(error,info)=>{
+ transporter.sendMail(mailOptions,(error,info)=>{
 
-// if(error)
-// {
-//     console.log("Failed to send Mail!!")
-// }
-// console.log(`Message ${info.messageId} was sent successfully ${info.response}`)
+if(error)
+{
+    console.log("Failed to send Mail!!")
+}
+console.log(`Message ${info.messageId} was sent successfully ${info.response}`)
 
-// })
+})
 
-// console.log("sending mail.....")
-
-//             res.send(book);
-//         }
+console.log("sending mail.....")
+        }
 } 
 catch (error) {
     console.log(error)

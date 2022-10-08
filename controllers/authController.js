@@ -46,20 +46,20 @@ const register = async (req, res) => {
 
 
 
-const {validators:{regex}}=await validate_email(req.body.email)
+//const {validators:{regex}}=await validate_email(req.body.email)
 
-if(!regex)
-    throw new Error("The email is not valid!!");
+// if(!regex)
+//     throw new Error("The email is not valid!!");
    
 
-    const account = await User.create({
+    const user = await User.create({
      
       password: bcrypt.hashSync(req.body.password, 8),
       email: req.body.email,
     });
-    console.log(account.id);
-if(account)
-   res.send(account);
+    console.log(user.id);
+if(user)
+   res.send(user);
     //sendOtp(account,res);
   } catch (err) {
     res.status(500).send({ message: err.message });

@@ -154,6 +154,24 @@ try {
 
 
 }
+ 
+
+//forgot password
+
+// /forgot password
+
+//enter email
+
+//otp to email
+
+// /forgot password/verify
+
+
+// enter otp mail and new password
+
+
+//reset password successfully
+
 
 
 
