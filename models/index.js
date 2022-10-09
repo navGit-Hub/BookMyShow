@@ -434,7 +434,7 @@ db.timing.belongsToMany(db.screens,{through:"screen_timing"});
 
 // seats
 
-db.seats.hasOne(db.screens,{
+db.seats.hasMany(db.screens,{
     foreignKey:"screen_id",
     onDelete:"CASCADE",
     onUpdate:"CASCADE"
@@ -446,7 +446,7 @@ db.screens.belongsTo(db.seats,{
     onUpdate:"CASCADE"
 })
 
-db.seats.hasOne(db.theater,{
+db.seats.hasMany(db.theater,{
     foreignKey:"theater_id",
     onDelete:"CASCADE",
     onUpdate:"CASCADE"
@@ -455,6 +455,19 @@ db.seats.hasOne(db.theater,{
 
 db.theater.belongsTo(db.seats,{
     foreignKey:"theater_id",
+    onDelete:"CASCADE",
+    onUpdate:"CASCADE"
+})
+
+db.seats.hasMany(db.timing,{
+    foreignKey:"timing_id",
+    onDelete:"CASCADE",
+    onUpdate:"CASCADE"
+})
+
+
+db.timing.belongsTo(db.seats,{
+    foreignKey:"timing_id",
     onDelete:"CASCADE",
     onUpdate:"CASCADE"
 })

@@ -13,6 +13,13 @@ const movie=await db.movies.findAll({
 })
 
 
+//validate screen with date and free seats periodically before
+//opening any movie for booking
+
+
+
+
+
 if(movie)
 res.send(movie)
 
@@ -156,6 +163,28 @@ try {
 }
  
 
+const getBookings=async (req,res)=>{
+
+       try {
+
+            const bookings=await db.book.findAll({});
+            res.send(bookings)
+
+
+        
+       } catch (error) {
+           res.status(501).send({msg:error.message});
+       }
+
+
+
+
+}
+
+
+
+
+
 //forgot password
 
 // /forgot password
@@ -175,6 +204,10 @@ try {
 
 
 
+//book general events
+
+
+
 
 
 export {getMoviesCustom,
@@ -184,5 +217,6 @@ export {getMoviesCustom,
     getReviews,
     getRecommendedMovies,
     getAdverts,
-    getTimings
+    getTimings,
+    getBookings
 }

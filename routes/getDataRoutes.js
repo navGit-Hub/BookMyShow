@@ -7,7 +7,8 @@ import {getMoviesCustom,
 getReviews,
 getRecommendedMovies,
 getAdverts,
-getTimings} from '../controllers/getDataController.js';
+getTimings,
+getBookings} from '../controllers/getDataController.js';
 
 const router=express.Router();
 
@@ -27,6 +28,8 @@ router.route('/getAdvertisements').get(getAdverts)
 
 
 router.route('/getTimings').get(getTimings)
+
+router.route('/getBookings').get(getBookings)
 
 
 

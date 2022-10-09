@@ -16,18 +16,22 @@ movie_name:{
   type:DataTypes.STRING,
   allowNull:false
 },
-
+date:{
+  type:DataTypes.DATEONLY,
+  allowNull:false
+},
     theater_id:{
       type:DataTypes.INTEGER,
+      allowNull:false
     },
-    screen_id:{
+    screen_no:{
       type:DataTypes.INTEGER,
-    }
-    
-    
+      allowNull:false
+    }  
     ,
       time_slot:{
-        type:DataTypes.TIME
+        type:DataTypes.TIME,
+        allowNull:false
       }
     
     }))

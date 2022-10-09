@@ -1,14 +1,8 @@
 export default (sequelize,{DataTypes})=>{
     return sequelize.define('Seat',({
-        id:{
+        seat_id:{
             type:DataTypes.INTEGER,
-            autoIncrement: true,
-            unique:true,
             allowNull:false,
-             primaryKey:true,
-             validate:{
-                notEmpty:true,
-             }
           },
 //try many to many
 
@@ -16,7 +10,7 @@ export default (sequelize,{DataTypes})=>{
     type:DataTypes.INTEGER,
     allowNull:false
    },
-   screen_id:{
+   screen_no:{
     type:DataTypes.INTEGER,
     allowNull:false
    },
@@ -26,7 +20,11 @@ export default (sequelize,{DataTypes})=>{
           isBooked:{
             type:DataTypes.BOOLEAN,
             defaultValue:false
-          }
+          },
+      timing_id:{
+         type:DataTypes.INTEGER,
+         allowNull:false
+      }
 
     }))
     

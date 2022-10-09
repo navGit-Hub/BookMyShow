@@ -6,6 +6,7 @@ import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 import { validationResult } from "express-validator";
 import emailValidator from 'deep-email-validator';
+import user from "../models/account/user.js";
 
 dotenv.config();
 
@@ -60,12 +61,31 @@ const register = async (req, res) => {
     console.log(user.id);
 if(user)
    res.send(user);
-    //sendOtp(account,res);
+    //sendOtp(user,res);
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
 };
 
+
+const forgotPassword=async (req,res)=>{
+
+
+
+     const {email}=req.body;
+
+    let user=await db.user.findOne({
+      where:{
+        email
+      }
+    })
+    console.log(user)
+    
+
+sendOtp(user,res);
+
+
+}
 const sendOtp=async ({id,email},res)=>{
 try {
 
@@ -249,4 +269,120 @@ res.setHeader("Set-Cookie", `jwt=${token};Path=/;HttpOnly`);
     res.status(500).send({ message: err.message });
   }
 };
-export { register, login,verifyOtp };
+
+const updatePassword= async(req,res)=>{
+  try {
+      console.log(req.body)
+      const{otp,email,newPassword}=req.body;
+
+   const user=await db.user.findOne({
+    where:{
+      email
+    }
+   })
+
+   console.log(user)
+
+      // checking for req data
+      if (!otp || !user){
+          throw Error("OTP details unavailable")
+      } else{
+          console.log(otp)
+          // getting otp
+          const recordOtp= await Verify.findOne({
+            where: {
+              user_id:user.id,
+            },
+          });
+          console.log(recordOtp.otp)
+
+          if (!recordOtp){
+              throw new Error(
+                  "OTP Authentication Failed!!"
+              );
+          }else{
+              // checking record
+              const {expires_at}=recordOtp;
+              console.log(expires_at)
+              const hashedOtp=recordOtp.otp;
+
+              if(expires_at<Date.now()){
+                  await Verify.destroy({
+                      where: { id:user.id}
+                      });
+                  throw new Error ("Code has expired,Please request again");
+              }else{
+                     
+                  const validOtp=await bcrypt.compareSync(otp,hashedOtp);
+                  console.log(validOtp)
+
+                  if (!validOtp){
+                      throw new Error("Invalid code passed,check your inbox");
+                  }else{
+
+                      await User.update({password:bcrypt.hashSync(newPassword,8)},{
+                          where:{
+                              email
+                          }
+                      });
+
+                      await Verify.destroy({
+                          where:{
+                              user_id:user.id
+                          }
+                      });
+
+                      res.json({
+                          status:"Password Updated Successfully!!",
+                          message:"new password changed!!",
+                      })
+                  
+                  }
+              }
+          
+          }
+      }
+  } catch (error) {
+      res.json({
+          status:"Failed",
+          message:error.message,
+
+      });
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export { register, login,verifyOtp,forgotPassword,updatePassword};

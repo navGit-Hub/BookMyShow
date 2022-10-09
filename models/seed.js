@@ -280,49 +280,90 @@ addTimings([
 {
     "movie_name":"Ponniyin Selvan Part-1",
     "theater_id":1,
-    "screen_id":1,
+    "screen_no":1,
     "time_slot":"16:00:00",
+    "date":"2022-10-09"
 },
 {
     "movie_name":"Nane Varuven",
     "theater_id":1,
-    "screen_id":1,
+    "screen_no":1,
     "time_slot":"20:00:00",
+    "date":"2022-10-09"
 }
 ]);
 
 addSeats([
 
 {
+    "seat_id":1,
    "theater_id":1,
-   "screen_id":1,
+   "screen_no":1,
    "seat_no":"1A",
+   "timing_id":1
 },
 {
+    "seat_id":2,
     "theater_id":1,
-    "screen_id":1,
-    "seat_no":"2A"
+    "screen_no":1,
+    "seat_no":"2A",
+    "timing_id":1
 },
 {
+    "seat_id":3,
     "theater_id":1,
-    "screen_id":1,
-    "seat_no":"3A"
+    "screen_no":1,
+    "seat_no":"3A",
+    "timing_id":1
 },
 {
+    "seat_id":4,
     "theater_id":1,
-    "screen_id":1,
-    "seat_no":"4A"
+    "screen_no":1,
+    "seat_no":"4A",
+    "timing_id":1
 },
 {
+    "seat_id":5,
     "theater_id":1,
-    "screen_id":1,
-    "seat_no":"5A"
-}
-
-
-
-
-
+    "screen_no":1,
+    "seat_no":"5A",
+    "timing_id":1
+},{
+    "seat_id":1,
+    "theater_id":1,
+    "screen_no":1,
+    "seat_no":"1A",
+    "timing_id":2
+ },
+ {
+     "seat_id":2,
+     "theater_id":1,
+     "screen_no":1,
+     "seat_no":"2A",
+     "timing_id":2
+ },
+ {
+    "seat_id":3,
+     "theater_id":1,
+     "screen_no":1,
+     "seat_no":"3A",
+     "timing_id":2
+ },
+ {
+     "seat_id":4,
+     "theater_id":1,
+     "screen_no":1,
+     "seat_no":"4A",
+     "timing_id":2
+ },
+ {
+      "seat_id":5,
+     "theater_id":1,
+     "screen_no":1,
+     "seat_no":"5A",
+     "timing_id":2
+ }
 
 
 ])
