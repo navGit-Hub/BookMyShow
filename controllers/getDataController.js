@@ -1,5 +1,7 @@
 import db from "../models/index.js";
 
+
+//paginate
 const getMoviesCustom=async (req,res)=>{
 try {
     
@@ -7,17 +9,15 @@ try {
 
         console.log(req.query)
 const movie=await db.movies.findAll({
+    limit:5,
+    offset:req.query.offset*5,
     where:{
         [searchParam]:req.query["searchTerm"]
     }
 })
 
-
 //validate screen with date and free seats periodically before
 //opening any movie for booking
-
-
-
 
 
 if(movie)
@@ -29,6 +29,8 @@ res.send(movie)
 
 }
 
+
+//paginate
 const getGeneralEventsCustom=async (req,res)=>{
     try {
      
@@ -36,6 +38,8 @@ const getGeneralEventsCustom=async (req,res)=>{
         const searchParam=req.query["searchParam"];
 
         const general_events=await db.general_events.findAll({
+            limit:5,
+            offset:req.query.offset*5,
             where:{
                 [searchParam]:req.query["searchTerm"]
             }
@@ -48,10 +52,14 @@ const getGeneralEventsCustom=async (req,res)=>{
         }
 }
 
+//pagination
 const getAllGeneralEvents=async (req,res)=>{
   
     try {
-         const allEvents=await db.general_events.findAll({});
+         const allEvents=await db.general_events.findAll({
+            limit:5,
+            offset:req.query.offset*5,
+         });
 
               res.status(200).send(allEvents);
 
@@ -61,11 +69,15 @@ const getAllGeneralEvents=async (req,res)=>{
 
 }
 
+
+//paginate
 const getAllMovies=async (req,res)=>{
 
 try {
      
     const allMovies=await db.movies.findAll({
+        limit:5,
+        offset:req.query.offset*2,
         where:{
             isStreaming:false
         }
@@ -82,10 +94,13 @@ try {
 
 }
 
+//paginate
 const getReviews=async (req,res)=>{
 
 try {
     const reviews=await db.reviews.findAll({
+        limit:5,
+        offset:req.query.offset*5,
         where:{
             movie_name:req.query['movie_name']
         }
@@ -100,10 +115,16 @@ try {
 
 }
 
+
+//pagination
 const getRecommendedMovies=async (req,res)=>{
 
     try {
-        const recommended_movies=await db.recommended_movies.findAll({}).map(async movie=>{
+        const recommended_movies=await db.recommended_movies.findAll({
+            limit:5,
+            offset:req.query.offset*5,
+
+        }).map(async movie=>{
             return db.movies.findOne({where:{
                 id:movie.movie_id
             }})
@@ -118,10 +139,14 @@ const getRecommendedMovies=async (req,res)=>{
     
     }
     
+
+   //paginate 
 const getAdverts=async (req,res)=>{
 try {
 
      const adverts= await db.advertisements.findAll({
+        limit:5,
+        offset:req.query.offset*5,
         where:{
             date:req.query["date"]
         }
@@ -184,6 +209,30 @@ const getBookings=async (req,res)=>{
 
 
 
+const getSeats=async (req,res)=>{ 
+try {
+    
+    const seats=await  db.seats.findAll({
+        where:{
+           theater_id:req.query.theater_id,
+           screen_no:req.query.screen_no,
+           timing_id:req.query.timing_id
+        }
+       }
+        )
+
+res.send(seats);
+
+} catch (error) {
+    res.status(500).send({err:error.message});
+}
+
+
+
+}
+
+
+
 
 //forgot password
 
@@ -218,5 +267,6 @@ export {getMoviesCustom,
     getRecommendedMovies,
     getAdverts,
     getTimings,
-    getBookings
+    getBookings,
+    getSeats
 }

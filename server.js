@@ -8,6 +8,9 @@ import authRouter from './routes/authRoutes.js'
 import addData from './routes/addDataRoutes.js'
 import getData from './routes/getDataRoutes.js'
 import bookTickets from './routes/bookTicketsRoutes.js'
+import userFunctionality from './routes/userFunctionalities.js';
+
+import { paymentSuccess ,paymentFail} from './controllers/paymentController.js';
 
 import cors from 'cors';
 
@@ -30,11 +33,19 @@ app.use('/api/v1/auth',authRouter);
 app.use('/api/v1/addData',addData);
 app.use('/api/v1/getData',getData);
 app.use('/api/v1/book',bookTickets);
+app.use('/api/v1/userFunctionality',userFunctionality);
+
+//complete stripe api 
+
+
+app.get('/payments/success/:id',paymentSuccess);
+app.get('/payments/failed/:id',paymentFail);
 
 
 app.get('/api/v1/hello',(req,res)=>{
   res.send("hello");
 })
+
 
 
 

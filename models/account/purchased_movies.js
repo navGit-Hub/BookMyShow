@@ -15,9 +15,18 @@ export default (sequelize,{DataTypes})=>{
       user_id:{
         type:DataTypes.INTEGER,
         allowNull:false,
-       
-
       },
+      owned:{
+        type:DataTypes.BOOLEAN,
+        allowNull:false,
+        defaultValue:true
+      }
+
+      ,
+      rentedDate:{
+        type:DataTypes.DATE,
+        defaultValue:0
+     },
       movie_id:{
         type:DataTypes.INTEGER,
         unique:true,

@@ -1,3 +1,5 @@
+import { DATE } from "sequelize"
+
 export default (sequelize,{DataTypes})=>{
     return sequelize.define('BookTicket',({
         id:{
@@ -23,6 +25,17 @@ export default (sequelize,{DataTypes})=>{
             type:DataTypes.STRING,
             allowNull:false,
           },
+theater_id:{
+type:DataTypes.INTEGER,
+allowNull:false
+
+},
+
+timing_id:{
+   type:DataTypes.INTEGER,
+   allowNull:false
+}
+,
 time:{
 type:DataTypes.TIME,
 allowNull:false
@@ -36,12 +49,23 @@ seats:{
    allowNull:false
 }
 ,
-mode_of_payment:{
-    type:DataTypes.STRING,
-    allowNull:false
-},
 date:{
-   type:DataTypes.DATE
+   type:DataTypes.DATEONLY,
+   allowNull:false
+
+},
+screen_no:{
+   type:DataTypes.INTEGER,
+   allowNull:false
+},
+paid_amount:{
+   type:DataTypes.INTEGER,
+    allowNull:false,
+   defaultValue:0
+},
+email:{
+   type:DataTypes.STRING,
+   allowNull:false
 }
     }))
     }

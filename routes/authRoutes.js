@@ -6,10 +6,14 @@ import { register,login,verifyOtp,forgotPassword,updatePassword} from "../contro
 import verifyRegister from '../middleware/verifyRegister.js'
 import verifyToken from "../middleware/verifyToken.js";
 
+import {checkSuperUser} from "../middleware/checkSuperUser.js";
+
+import {checkRentedMovies} from '../middleware/checkRentedMovies.js'
+
 const router=express.Router();
 
 router.route('/login').post(body("email").isEmail(),body('password').isLength({min:5}),
-login);
+checkSuperUser,login);
 
 router.route('/register').post(
 body("email").isEmail()

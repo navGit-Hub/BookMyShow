@@ -10,6 +10,11 @@ const transporter=nodemailer.createTransport({
 }
 })
 
+// monitor seat data format the data to be sent.
+
+
+
+//elastic search -->movies, re
 
 const paymentProcessed=true;
 
@@ -19,11 +24,6 @@ const blockSeats=async (seats,theater_id,screen_no,seat_ids,timing_id)=>{
 console.log("hi");
 
     // seats.forEach(async seat_no=>{})
-
-
-
-
-
 
 
 
@@ -69,10 +69,6 @@ console.log(seat_ids)
 
 
 }
-
-
-
-
 
 
 
@@ -185,10 +181,13 @@ if(seat_ids.length===0)
            movie_name:req.body.movie_name,
            theater_name:req.body.theater_name,
         time:req.body.time_slot,
-        number_of_tickets:req.body.number_of_tickets,
-        mode_of_payment:req.body.mode_of_payment,       
+        number_of_tickets:req.body.number_of_tickets,       
         seats:req.body.seats,
-date:req.body.date
+date:req.body.date,
+screen_no,
+theater_id,
+timing_id,
+email:user.email
         })
 
         //console.log(book);
@@ -207,7 +206,7 @@ console.log(seat_ids)
 
 setTimeout(async ()=>{
 
-console.log(seat_ids)
+//console.log(seat_ids)
     const payment=await db.payment.findOne({
         where:{
             book_id
@@ -234,25 +233,22 @@ try {
 
       })
     
-
-await  db.payment.destroy({
-where:{
-   book_id
-}
-})
-await db.book.destroy({
-where:{
-   id:book_id
-}
-})
-    
+      await db.book.destroy({
+        where:{
+           id:book_id
+        }
+        })
 } catch (error) {
     console.log(error.message)
 }
-    
-    
            }
-    },10000)
+           await  db.payment.destroy({
+            where:{
+               book_id
+            }
+            })
+
+    },180000)
 
         if(book)
         {

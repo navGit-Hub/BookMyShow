@@ -16,6 +16,7 @@ export default (sequelize,{DataTypes})=>{
    },
       seat_no:{
             type:DataTypes.STRING,
+            allowNull:false
           },
           isBooked:{
             type:DataTypes.BOOLEAN,

@@ -184,17 +184,15 @@ addMovies([
    "genre":"Science-Fiction",
    "duration":2,
    "rating":8,
-   "isStreaming":false,
    "certificate":"U/A",
     "language":"Tamil"
   },
   {
    "review_id":2,
-   "title":"Kadhalum-Kadanthu-Pogum",
+   "title":"Kadhalum Kadanthu Pogum",
    "genre":"Romantic-Comedy",
    "duration":2,
    "rating":8,
-   "isStreaming":false,
    "certificate":"U/A",
    "language":"Tamil"
   },
@@ -204,7 +202,6 @@ addMovies([
    "genre":"Action/ Crime/ Thriller",
    "duration":2,
    "rating":8,
-   "isStreaming":false,
    "certificate":"U/A",
     "language":"Tamil",
     "image":"https://assets-in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:oi-discovery-catalog@@icons@@heart_202006300400.png,ox-24,oy-617,ow-29:ote-ODclICA0MGsgdm90ZXM%3D,ots-29,otc-FFFFFF,oy-612,ox-70:q-80/et00319143-egauxbljnf-portrait.jpg"
@@ -214,7 +211,6 @@ addMovies([
    "genre":"Action/ Psychological/ Thriller",
    "duration":2,
    "rating":8,
-   "isStreaming":false,
    "certificate":"U/A",
    "language":"Tamil",
    "image":"https://assets-in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:oi-discovery-catalog@@icons@@heart_202006300400.png,ox-24,oy-617,ow-29:ote-ODMlICAyMGsgdm90ZXM%3D,ots-29,otc-FFFFFF,oy-612,ox-70:q-80/et00304895-rphemrjuhc-portrait.jpg"
@@ -222,11 +218,10 @@ addMovies([
   },
   {
    "review_id":5,
-   "title":"Ponniyin Selvan - Part 1",
+   "title":"Ponniyin Selvan Part 1",
    "genre":"Actio/  Adventure/ Drama/ Historical",
    "duration":2,
    "rating":8,
-   "isStreaming":false,
    "certificate":"U/A",
     "language":"Tamil",
     "image":"https://assets-in.bmscdn.com/discovery-catalog/events/tr:w-400,h-600,bg-CCCCCC:w-400.0,h-660.0,cm-pad_resize,bg-000000,fo-top:oi-discovery-catalog@@icons@@heart_202006300400.png,ox-24,oy-617,ow-29:ote-ODclICAxMTNrIHZvdGVz,ots-29,otc-FFFFFF,oy-612,ox-70:q-80/et00323897-zvgjhaqnxq-portrait.jpg"
@@ -282,7 +277,7 @@ addTimings([
     "theater_id":1,
     "screen_no":1,
     "time_slot":"16:00:00",
-    "date":"2022-10-09"
+    "date":"2022-10-14"
 },
 {
     "movie_name":"Nane Varuven",
@@ -290,6 +285,19 @@ addTimings([
     "screen_no":1,
     "time_slot":"20:00:00",
     "date":"2022-10-09"
+},{
+    "movie_name":"Ponniyin Selvan Part-1",
+    "theater_id":1,
+    "screen_no":1,
+    "time_slot":"10:00:00",
+    "date":"2022-10-10"
+},
+{
+    "movie_name":"Nane Varuven",
+    "theater_id":1,
+    "screen_no":1,
+    "time_slot":"08:00:00",
+    "date":"2022-10-14"
 }
 ]);
 
@@ -363,8 +371,77 @@ addSeats([
      "screen_no":1,
      "seat_no":"5A",
      "timing_id":2
+ },
+  {
+    "seat_id":1,
+    "theater_id":1,
+    "screen_no":1,
+    "seat_no":"1A",
+    "timing_id":3
+ },
+ {
+     "seat_id":2,
+     "theater_id":1,
+     "screen_no":1,
+     "seat_no":"2A",
+     "timing_id":3
+ },
+ {
+    "seat_id":3,
+     "theater_id":1,
+     "screen_no":1,
+     "seat_no":"3A",
+     "timing_id":3
+ },
+ {
+     "seat_id":4,
+     "theater_id":1,
+     "screen_no":1,
+     "seat_no":"4A",
+     "timing_id":3
+ },
+ {
+      "seat_id":5,
+     "theater_id":1,
+     "screen_no":1,
+     "seat_no":"5A",
+     "timing_id":3
+ },
+ {
+    "seat_id":1,
+    "theater_id":1,
+    "screen_no":1,
+    "seat_no":"1A",
+    "timing_id":4
+ },
+ {
+     "seat_id":2,
+     "theater_id":1,
+     "screen_no":1,
+     "seat_no":"2A",
+     "timing_id":4
+ },
+ {
+    "seat_id":3,
+     "theater_id":1,
+     "screen_no":1,
+     "seat_no":"3A",
+     "timing_id":4
+ },
+ {
+     "seat_id":4,
+     "theater_id":1,
+     "screen_no":1,
+     "seat_no":"4A",
+     "timing_id":4
+ },
+ {
+      "seat_id":5,
+     "theater_id":1,
+     "screen_no":1,
+     "seat_no":"5A",
+     "timing_id":4
  }
-
 
 ])
 

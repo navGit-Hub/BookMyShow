@@ -44,7 +44,7 @@ db_connect();
 //     catch(ex){
 //         console.log("here", ex.message)
 //     }
-//   })(); 
+//   })();  
 
 
 
@@ -150,6 +150,31 @@ db.user.belongsTo(db.purchased_movies,{
       onUpdate:"CASCADE"
   })
 
+  db.book.hasMany(db.theater,{
+    foreignKey:"theater_id",
+    onDelete:"CASCADE",
+    onUpdate:"CASCADE"
+  })
+  
+  db.theater.belongsTo(db.book,{
+      foreignKey:"theater_id",
+      onDelete:"CASCADE",
+      onUpdate:"CASCADE"
+  })
+
+
+  db.book.hasMany(db.timing,{
+    foreignKey:"timing_id",
+    onDelete:"CASCADE",
+    onUpdate:"CASCADE"
+  })
+  
+  db.timing.belongsTo(db.book,{
+      foreignKey:"timing_id",
+      onDelete:"CASCADE",
+      onUpdate:"CASCADE"
+  })
+
 
 //profile
 
@@ -164,7 +189,6 @@ db.profile.hasMany(db.user,{
       onDelete:"CASCADE",
       onUpdate:"CASCADE"
   })
-
 
   db.profile.hasOne(db.account_settings,{
     foreignKey:"account_id",
@@ -471,6 +495,8 @@ db.timing.belongsTo(db.seats,{
     onDelete:"CASCADE",
     onUpdate:"CASCADE"
 })
+
+
 
 
 
